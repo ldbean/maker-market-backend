@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const ctrl = require('../controllers');
+const verifyToken = require('../middleware/verification');
 
-// users
-router.get('/', ctrl.users.index);
-router.get('/users/:id', ctrl.users.show);
-router.post('/users', ctrl.users.create);
-router.put('/users/:id', ctrl.users.update);
-router.delete('/users/:id', ctrl.users.destroy);
+
+// posts
+router.get('/posts', verifyToken, ctrl.posts.index);
+router.get('/posts/:id', ctrl.posts.show);
+router.post('/posts', ctrl.posts.create);
+router.put('/posts/:id', ctrl.posts.update);
+router.delete('/posts/:id', ctrl.posts.destroy);
 
 module.exports = router;

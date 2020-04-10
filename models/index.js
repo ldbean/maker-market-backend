@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const DB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/doggos';
+const DB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/maker-market';
 
 mongoose.connect(DB_URI, {
   useNewUrlParser: true,
@@ -11,5 +11,6 @@ mongoose.connect(DB_URI, {
   .catch((err) => console.log(err));
 
   module.exports = {
-    User: require('./User')
+    User: require('./User'),
+    Post: require('./Post')
   }
