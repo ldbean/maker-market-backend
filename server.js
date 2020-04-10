@@ -2,6 +2,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const cors = require('cors');
+
 
 require('dotenv').config()
 
@@ -14,8 +16,15 @@ const routes = require('./routes');
 // database
 const db = require('./models');
 
+const corsOptions = {
+  origin: ['http://localhost:3000'],
+  methods: "GET,POST,PUT,DELETE",
+  credentials: true, //allows session cookies to be sent back and forth
+  optionsSuccessStatus: 200 //legacy browsers
+}
+
 // middleware
-// app.use(cors());
+app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
 
