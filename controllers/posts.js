@@ -10,16 +10,6 @@ const index = async (req, res) => {
   }
 }
 
-const uIndex = async (req, res) => {
-  try {
-    const posts = await db.Post.find({authorId:req.params.username});
-    if (err) return res.status(400).json({status: 400, error: 'Something went wrong, please try again'});
-    return res.json(posts);
-  } catch (err) {
-    return res.status(500).json(err);
-  }
-}
-
 const show = async (req, res) => {
   try {
     const post = await db.Post.findById(req.params.postId);
@@ -46,10 +36,12 @@ const create = (req, res) => {
   });
 };
 
+// router.put('/:username/posts/:postId', verifyToken, ctrl.posts.update);
 const update = async (req, res) => {
   console.log(req.body);
+  console.log(req.params.postId);
   try {
-    const updatedPost = await db.Post.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const updatedPost = await db.Post.findByIdAndUpdate(req.params.postId, req.body, { new: true });
     if (!updatedPost) return res.status(404).json({error: 'Post could not be updated!'});
     return res.json(updatedPost);
   } catch (err) {
@@ -59,7 +51,7 @@ const update = async (req, res) => {
 
 const destroy = async (req, res) => {
   try {
-    const deletedPost = await db.Post.findByIdAndDelete(req.params.id);
+    const deletedPost = await db.Post.findByIdAndDelete(req.params.postId);
     if (!deletedPost) return res.status(404).json({error: 'Post with that ID could not be found!'});
     return res.json(deletedPost);
   } catch (err) {
@@ -69,7 +61,6 @@ const destroy = async (req, res) => {
 
 module.exports = {
   index,
-  uIndex,
   show,
   create,
   update,
