@@ -10,6 +10,16 @@ const index = async (req, res) => {
   }
 }
 
+const uIndex = async (req, res) => {
+  try {
+    const posts = await db.User.find({username:req.params.username, 'posts.authorId':req.params.username});
+    if (!posts) return res.status(404).json({error: 'No posts found!'});
+    return res.json(posts);
+  } catch (err) {
+    return res.status(500).json(err);
+  }
+}
+
 const show = async (req, res) => {
   try {
     const post = await db.Post.findById(req.params.postId);
@@ -61,6 +71,7 @@ const destroy = async (req, res) => {
 
 module.exports = {
   index,
+  uIndex,
   show,
   create,
   update,

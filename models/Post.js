@@ -4,6 +4,7 @@ const Schema = mongoose.Schema;
 const PostSchema = new Schema({
     title: String, 
     content: String,
+    image: String,
     authorId: String
 }, {timestamps: true});
 

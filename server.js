@@ -2,12 +2,13 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const path =  require('path')
 const cors = require('cors');
 
 
 require('dotenv').config()
 
-// port
+// portnpm i 
 const PORT = process.env.PORT;
 
 // routes
@@ -23,6 +24,7 @@ const corsOptions = {
 }
 
 // middleware
+app.use('/static', express.static('public'));
 app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(bodyParser.json());
@@ -33,5 +35,7 @@ app.use('/api/v1', routes.auth);
 app.get('/', (req, res) => {
   res.send('api page');
 })
+
+
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}.`));
