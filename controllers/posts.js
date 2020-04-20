@@ -12,7 +12,7 @@ const index = async (req, res) => {
 
 const uIndex = async (req, res) => {
   try {
-    const posts = await db.User.find({username:req.params.username, 'posts.authorId':req.params.username});
+    const posts = await db.Post.find({authorId:req.params.username});
     if (!posts) return res.status(404).json({error: 'No posts found!'});
     return res.json(posts);
   } catch (err) {

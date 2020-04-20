@@ -5,10 +5,12 @@ const verifyToken = require('../middleware/verification');
 
 // users
 router.get('/users', ctrl.users.index);
+router.get('/:username', ctrl.users.show);
+
 
 // posts
 router.get('/posts', ctrl.posts.index);
-router.get('/:username/', ctrl.posts.uIndex);
+router.get('/:username/posts', ctrl.posts.uIndex);
 router.get('/:username/posts/:postId', ctrl.posts.show); 
 router.post('/:username/posts', verifyToken, ctrl.posts.create);
 router.put('/:username/posts/:postId', verifyToken, ctrl.posts.update);

@@ -10,6 +10,17 @@ const index = async (req, res) => {
     }
 }
 
+const show = async (req, res) => {
+    try {
+        const user = await db.User.findOne({username:req.params.username});
+        if (!user) return res.status(404).json({error: 'No user found!'});
+        return res.json(user);
+    } catch (err) {
+        return res.status(500).json(err);
+    }
+}
+
 module.exports = {
-    index
+    index,
+    show
 }
